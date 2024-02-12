@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_green_light"
+    tools:context=".IncomeFragment">
+
+    <EditText
+        android:id="@+id/income_Date"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:background="@drawable/lavender_border"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:textColorHint="@color/black"
+        android:hint="Select a date"
+        android:textColor="@color/black"
+        android:focusable="false" />
+
+    <!-- Edit Text for String Input -->
+    <EditText
+        android:id="@+id/income_desc"
+        android:layout_below="@id/income_Date"
+        android:background="@drawable/lavender_border"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="Description" />
+
+    <!-- Edit Text for Number Input -->
+    <EditText
+        android:id="@+id/income_amount"
+        android:layout_below="@id/income_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="350dp"
+        android:background="@drawable/lavender_border"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/baseline_currency_rupee_24"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:hint="Amount" />
+
+    <Spinner
+        android:id="@+id/spinner_income_dest"
+        android:layout_below="@id/income_amount"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/lavender_boreder_black_background"
+        android:entries="@array/dropdown_Account_items" />
+
+    <Spinner
+        android:id="@+id/spinner_income_tag"
+        android:layout_below="@id/spinner_income_dest"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/lavender_boreder_black_background"
+        android:entries="@array/dropdown_tag_items" />
+
+    <Button
+        android:id="@+id/income_add_button"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/spinner_income_tag"
+        android:layout_marginTop="30dp"
+        android:text="Add"
+        android:textColor="@color/black"
+        android:padding="8dp"
+        android:background="@drawable/lavender_border"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
+
+</RelativeLayout>

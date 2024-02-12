@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    tools:context=".AssetLiabilityFragment">
+
+    <EditText
+        android:id="@+id/al_Date"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@drawable/lavender_border"
+        android:layout_marginTop="100dp"
+        android:textColorHint="@color/black"
+        android:hint="Select a date"
+        android:textColor="@color/black"
+        android:focusable="false" />
+
+
+    <Spinner
+        android:id="@+id/spinner_asset_liab"
+        android:layout_below="@+id/al_Date"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:spinnerMode="dropdown"
+        android:background="@drawable/lavender_boreder_black_background"
+        android:entries="@array/dropdown_asset_liability_items" />
+
+    <!-- Edit Text for String Input -->
+    <EditText
+        android:id="@+id/al_desc"
+        android:layout_below="@id/spinner_asset_liab"
+        android:background="@drawable/lavender_border"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="Description" />
+
+    <!-- Edit Text for Number Input -->
+    <EditText
+        android:id="@+id/al_amount"
+        android:layout_below="@id/al_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="350dp"
+        android:background="@drawable/lavender_border"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/baseline_currency_rupee_24"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:hint="Amount" />
+
+    <Button
+        android:id="@+id/al_add_button"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/al_amount"
+        android:layout_marginTop="30dp"
+        android:text="Add"
+        android:textColor="@color/black"
+        android:padding="8dp"
+        android:background="@drawable/lavender_border"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
+
+</RelativeLayout>

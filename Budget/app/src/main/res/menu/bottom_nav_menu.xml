@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_asset_liability"
+        android:icon="@drawable/asset_liability_logo"
+        android:title="@string/asset_liability" />
+
+    <item
+        android:id="@+id/income"
+        android:icon="@drawable/income_logo"
+        android:title="@string/income" />
+
+    <item
+        android:id="@+id/expense"
+        android:icon="@drawable/expense_logo"
+        android:title="@string/expense" />
+    <item
+        android:id="@+id/transfer"
+        android:icon="@drawable/transfer_logo"
+        android:title="@string/transfer" />
+    <item
+        android:id="@+id/summary"
+        android:icon="@drawable/summary_logo"
+        android:title="@string/summary" />
+
+</menu>

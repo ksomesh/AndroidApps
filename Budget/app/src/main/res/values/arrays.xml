@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dropdown_asset_liability_items">
+        <item>Asset</item>
+        <item>Liability</item>
+    </string-array>
+    <string-array name="dropdown_Account_items">
+        <item>ICICI</item>
+        <item>HDFC</item>
+        <item>SBI</item>
+        <item>Credit card</item>
+        <item>Cash</item>
+    </string-array>
+    <string-array name="dropdown_tag_items">
+        <item>Salary</item>
+        <item>Interest</item>
+        <item>Savings</item>
+        <item>Bill and utility</item>
+        <item>Grocery</item>
+        <item>Investment</item>
+        <item>Food and dining</item>
+        <item>Shopping</item>
+        <item>Misc</item>
+        <item>Health</item>
+        <item>Travel</item>
+        <item>LoanEmi</item>
+    </string-array>
+</resources>
