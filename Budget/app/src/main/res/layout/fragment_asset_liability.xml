@@ -12,7 +12,7 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:background="@drawable/lavender_border"
+        android:background="@drawable/lavender_border_fill_background"
         android:layout_marginTop="100dp"
         android:textColorHint="@color/black"
         android:hint="Select a date"
@@ -28,14 +28,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:spinnerMode="dropdown"
-        android:background="@drawable/lavender_boreder_black_background"
+        android:background="@drawable/lavender_border_fill_background"
         android:entries="@array/dropdown_asset_liability_items" />
 
     <!-- Edit Text for String Input -->
     <EditText
         android:id="@+id/al_desc"
         android:layout_below="@id/spinner_asset_liab"
-        android:background="@drawable/lavender_border"
+        android:background="@drawable/lavender_border_fill_background"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:drawablePadding="8dp"
@@ -54,7 +54,7 @@
         android:drawablePadding="8dp"
         android:padding="8dp"
         android:layout_width="350dp"
-        android:background="@drawable/lavender_border"
+        android:background="@drawable/lavender_border_fill_background"
         android:layout_height="60dp"
         android:drawableLeft="@drawable/baseline_currency_rupee_24"
         android:inputType="number"
@@ -70,7 +70,7 @@
         android:text="Add"
         android:textColor="@color/black"
         android:padding="8dp"
-        android:background="@drawable/lavender_border"
+        android:background="@drawable/lavender_border_fill_background"
         android:layout_centerHorizontal="true"
         android:textSize="18sp" />
 

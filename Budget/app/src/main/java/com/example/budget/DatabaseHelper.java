@@ -1,5 +1,6 @@
 package com.example.budget;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.execSQL("create Table incomeExpense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, account TEXT, type TEXT)");
         MyDatabase.execSQL("create Table transfer(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, src TEXT, dest TEXT)");
         MyDatabase.execSQL("create Table final(id INTEGER PRIMARY KEY , date TEXT, totalAsset REAL, totalLiability REAL, totalIncome REAL, totalExpense REAL)");
-        //insertDataToFinalTable(1,"", Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") );
+        insertDataToFinalTable(MyDatabase, 1,"NA", Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") );
     }
 
     @Override
@@ -111,8 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertDataToFinalTable(int iId, String date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
-        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+    public Boolean insertDataToFinalTable(SQLiteDatabase MyDatabase, int iId, String date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", iId);
         contentValues.put("date", date);
@@ -132,17 +132,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean UpdateFinalTable(Date date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
+    public Boolean UpdateFinalTable(String date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", 1);
-        contentValues.put("date", date.getTime());
+        contentValues.put("date", date);
         contentValues.put("totalAsset", totalAsset);
         contentValues.put("totalLiability", totalLiability);
         contentValues.put("totalIncome", totalIncome);
         contentValues.put("totalExpense", totalExpense);
-        String[] whereArg = {"1"};
-        long result = MyDatabase.update("final", contentValues, "id", whereArg);
+        String[] whereArgs = {String.valueOf(1)};
+        String whereClause = "id = ?";
+        long result = MyDatabase.update("final", contentValues, whereClause, whereArgs);
 
         if (result == -1) {
             return false;
@@ -161,6 +162,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }else {
             return false;
         }
+    }
+
+    @SuppressLint("Range")
+    public Summary getSummary()
+    {
+        Summary summary = new Summary();
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        String[] projection = {"totalAsset" , "totalLiability" , "totalIncome" , "totalExpense" };
+        String selection = "id = ?";
+        String[] selectionArgs = {String.valueOf(1)};
+        Cursor cursor = MyDatabase.query("final", projection, selection, selectionArgs, null, null, null);
+        //Cursor cursor = MyDatabase.rawQuery("Select * from final where email = 1", null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            summary.fTotalAsset =  cursor.getFloat(cursor.getColumnIndex("totalAsset"));
+            summary.fTotalLiability = cursor.getFloat(cursor.getColumnIndex("totalLiability"));
+            summary.fTotalIncome = cursor.getFloat(cursor.getColumnIndex("totalIncome"));
+            summary.fTotalExpense = cursor.getFloat(cursor.getColumnIndex("totalExpense"));
+            return summary;
+        }else {
+            return null;
+        }
+    }
+
+    public void queryAndUpdateFinalTable(float fAddAsset, float fAddLiability, float fAddIncome, float fAddExpense ){
+        Summary summary = getSummary();
+        summary.fTotalAsset += fAddAsset;
+        summary.fTotalLiability += fAddLiability;
+        summary.fTotalIncome += fAddIncome;
+        summary.fTotalExpense += fAddExpense;
+        UpdateFinalTable("NA", summary.fTotalAsset, summary.fTotalLiability, summary.fTotalIncome, summary.fTotalExpense);
     }
     public Boolean checkEmailPassword(String email, String password){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();

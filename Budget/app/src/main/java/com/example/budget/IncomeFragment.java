@@ -91,13 +91,13 @@ public class IncomeFragment extends Fragment {
                     Log.e("Asset Liability FrameWork", "Failed to cast date");
                 }*/
                 //Todo : test the authenticity of data
-
+                
                 etDescription.setText(null);
                 etAmount.setText(null);
                 dateEditText.setText("Select a date");
 
                 db.insertDataToIncomeExpenseTable(date, strDesc, fAmount, strTag, strDest, "income");
-
+                db.queryAndUpdateFinalTable(0, 0, fAmount, 0);
             };
         });
 

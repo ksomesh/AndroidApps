@@ -102,6 +102,16 @@ public class AssetLiabilityFragment extends Fragment  {
 
                 db.insertDataToAssetLiabilityTable(date, strDesc, fAmount, strType);
 
+                float fAsset = Float.parseFloat("0");
+                float fLiability = Float.parseFloat("0");
+                if(strType.equals("Asset")) {
+                    fAsset = fAmount;
+                } else {
+                    fLiability = fAmount;
+                }
+
+                db.queryAndUpdateFinalTable(fAsset, fLiability, 0, 0);
+
             };
         });
 
