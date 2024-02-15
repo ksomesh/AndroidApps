@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_signup"
+    android:background="@drawable/background2"
     tools:context=".SignupActivity">
 
     <LinearLayout
@@ -27,7 +27,7 @@
                 android:layout_height="60dp"
                 android:id="@+id/signup_email"
                 android:background="@drawable/lavender_border_fill_background"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:hint="Email"
@@ -39,7 +39,7 @@
                 android:layout_height="60dp"
                 android:id="@+id/signup_password"
                 android:background="@drawable/lavender_border_fill_background"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:hint="Password"
@@ -52,7 +52,7 @@
                 android:layout_height="60dp"
                 android:id="@+id/signup_confirm"
                 android:background="@drawable/lavender_border_fill_background"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:hint="Confirm Password"
@@ -66,7 +66,7 @@
                 android:text="Sign Up"
                 android:id="@+id/signup_button"
                 android:textSize="18sp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 app:cornerRadius = "30dp"/>
 
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_bright"
+    android:background="@drawable/background2"
     tools:context=".TransferFragment">
 
 
@@ -25,7 +25,7 @@
         android:layout_below="@id/transfer_Date"
         android:background="@drawable/lavender_border_fill_background"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:drawablePadding="8dp"
         android:padding="8dp"
         android:layout_width="350dp"
@@ -38,7 +38,7 @@
         android:id="@+id/transfer_amount"
         android:layout_below="@id/transfer_desc"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:drawablePadding="8dp"
         android:padding="8dp"
         android:layout_width="350dp"
@@ -55,7 +55,7 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:spinnerMode="dropdown"
         android:background="@drawable/lavender_border_fill_background"
         android:entries="@array/dropdown_Account_items" />
@@ -66,7 +66,7 @@
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:spinnerMode="dropdown"
         android:background="@drawable/lavender_border_fill_background"
         android:entries="@array/dropdown_Account_items" />
@@ -76,7 +76,7 @@
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:layout_below="@id/spinner_transfer_dest"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:text="Add"
         android:padding="8dp"
         android:textColor="@color/black"

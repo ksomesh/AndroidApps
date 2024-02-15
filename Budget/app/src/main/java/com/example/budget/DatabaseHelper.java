@@ -1,18 +1,26 @@
 package com.example.budget;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -36,8 +44,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
         //MyDB.execSQL("drop Table if exists users");
         //MyDB.execSQL("drop Table if exists assetLiability");
+    }
 
-
+    public void resetFinDB()
+    {
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        MyDatabase.execSQL("drop Table if exists assetLiability");
+        MyDatabase.execSQL("drop Table if exists incomeExpense");
+        MyDatabase.execSQL("drop Table if exists transfer");
+        MyDatabase.execSQL("drop Table if exists final");
+        MyDatabase.execSQL("create Table assetLiability(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, type TEXT)");
+        MyDatabase.execSQL("create Table incomeExpense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, account TEXT, type TEXT)");
+        MyDatabase.execSQL("create Table transfer(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, src TEXT, dest TEXT)");
+        MyDatabase.execSQL("create Table final(id INTEGER PRIMARY KEY , date TEXT, totalAsset REAL, totalLiability REAL, totalIncome REAL, totalExpense REAL)");
+        insertDataToFinalTable(MyDatabase, 1,"NA", Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") );
     }
 
     public Boolean insertData(String email, String password){
@@ -203,6 +223,101 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }else {
             return false;
+        }
+    }
+
+    public double getBalanceForAcc(String strAcc)
+    {
+        SQLiteDatabase MyDatabase = this.getWritableDatabase();
+        String[] projection = {"amount" , "type"};
+        String selection = "account = ?";
+        String[] selectionArgs = {strAcc};
+        Cursor cursor = MyDatabase.query("incomeExpense", projection, selection, selectionArgs, null, null, null);
+        double dTotBalanceForAcc = 0;
+
+        while (cursor.moveToNext())  {
+            @SuppressLint("Range") String strType = cursor.getString(cursor.getColumnIndex("type"));
+            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            if(strType.equals("income")) {
+                dTotBalanceForAcc += dAmount;
+            }
+            else {
+                dTotBalanceForAcc -= dAmount;
+            }
+        }
+
+
+        projection = new String[]{"amount"};
+        selection = "dest = ?";
+        selectionArgs = new String[]{strAcc};
+        cursor = MyDatabase.query("transfer", projection, selection, selectionArgs, null, null, null);
+        while (cursor.moveToNext()) {
+            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            dTotBalanceForAcc += dAmount;
+        }
+
+        projection = new String[]{"amount"};
+        selection = "src = ?";
+        selectionArgs = new String[]{strAcc};
+        cursor = MyDatabase.query("transfer", projection, selection, selectionArgs, null, null, null);
+        while (cursor.moveToNext()) {
+            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            dTotBalanceForAcc -= dAmount;
+        }
+        return dTotBalanceForAcc;
+
+    }
+    public boolean exportAllTablesToCSV() {
+        DateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+        String timestamp = df.format(new Date());
+
+        String state = Environment.getExternalStorageState();
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+            return false;
+        } else {
+            File exportDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            if (!exportDir.exists()) {
+                exportDir.mkdirs();
+            }
+
+            try {
+                SQLiteDatabase db = getReadableDatabase();
+
+                // List of table names in your database
+                String[] tableNames = {"assetLiability", "incomeExpense", "transfer", "final"};
+
+                for (String tableName : tableNames) {
+                    File file = new File(exportDir, tableName + "_" + timestamp + ".csv");
+                    file.createNewFile();
+
+                    PrintWriter printWriter = new PrintWriter(new FileWriter(file));
+                    Cursor curCSV = db.rawQuery("SELECT * FROM " + tableName, null);
+
+                    // Write the column names as the first row in the CSV file
+                    String[] columnNames = curCSV.getColumnNames();
+                    printWriter.println(String.join(",", columnNames));
+
+                    while (curCSV.moveToNext()) {
+                        StringBuilder record = new StringBuilder();
+                        for (String columnName : columnNames) {
+                            int columnIndex = curCSV.getColumnIndex(columnName);
+                            String value = curCSV.getString(columnIndex);
+                            record.append(value).append(",");
+                        }
+                        printWriter.println(record.toString());
+                    }
+
+                    curCSV.close();
+                    printWriter.close();
+                    Log.d(TAG, "Exported " + tableName + " to " + file.getAbsolutePath());
+                }
+
+                db.close();
+                return true;
+            } catch (IOException e) {
+                Log.e(TAG, "Error exporting tables to CSV: " + e.getMessage());
+                return false;
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -36,6 +39,8 @@ public class TransferFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_transfer, container, false);
         db = new DatabaseHelper(getContext());
         dateEditText = rootView.findViewById(R.id.transfer_Date);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        dateEditText.setText(sdf.format(new Date()));
 
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +55,7 @@ public class TransferFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // Handle the selected date (e.g., update the EditText)
-                        String formattedDate = String.format(Locale.US, "%02d/%02d/%04d", month + 1, dayOfMonth, year);
+                        String formattedDate = String.format(Locale.US, "%02d/%02d/%04d",  dayOfMonth, month + 1, year);
                         dateEditText.setText(formattedDate);
                     }
                 };
@@ -67,6 +72,7 @@ public class TransferFragment extends Fragment {
         Button addBtn = rootView.findViewById(R.id.transfer_add_button);
         etDescription = rootView.findViewById(R.id.transfer_desc);
         etAmount= rootView.findViewById(R.id.transfer_amount);
+        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         spSrc = rootView.findViewById(R.id.spinner_transfer_src);
         spDest = rootView.findViewById(R.id.spinner_transfer_dest);
 

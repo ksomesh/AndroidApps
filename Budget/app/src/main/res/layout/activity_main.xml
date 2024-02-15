@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/main_layout"
     android:layout_height="match_parent"
-    android:background="@color/lavender"
+    android:background="@drawable/background2"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -13,10 +14,9 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="20dp"
         app:labelVisibilityMode="labeled"
         android:background="@android:color/transparent"
         android:id="@+id/bottom_navigation"

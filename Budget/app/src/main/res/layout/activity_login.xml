@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="@drawable/background2"
+
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -29,7 +30,7 @@
                     android:id="@+id/login_email"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/lavender_border_fill_background"
                     android:drawableLeft="@drawable/baseline_email_24"
                     android:drawablePadding="8dp"
@@ -41,7 +42,7 @@
                     android:id="@+id/login_password"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/lavender_border_fill_background"
                     android:drawableLeft="@drawable/baseline_lock_24"
                     android:drawablePadding="8dp"
@@ -54,7 +55,7 @@
                     android:id="@+id/login_button"
                     android:layout_width="350dp"
                     android:layout_height="70dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:text="Login"
                     android:textSize="18sp"
                     app:cornerRadius="30dp" />
@@ -64,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="15dp"
                     android:padding="8dp"
                     android:text="Not yet registered? Signup"
                     android:textColor="@color/lavender"

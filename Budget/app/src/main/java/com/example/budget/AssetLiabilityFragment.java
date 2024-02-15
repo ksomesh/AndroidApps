@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +46,10 @@ public class AssetLiabilityFragment extends Fragment  {
         // Inflate the layout for this fragment
         rootView =  inflater.inflate(R.layout.fragment_asset_liability, container, false);
         db = new DatabaseHelper(getContext());
-        dateEditText = rootView.findViewById(R.id.al_Date);
 
+        dateEditText = rootView.findViewById(R.id.al_Date);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        dateEditText.setText(sdf.format(new Date()));
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
 
@@ -60,7 +63,7 @@ public class AssetLiabilityFragment extends Fragment  {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // Handle the selected date (e.g., update the EditText)
-                        String formattedDate = String.format(Locale.US, "%02d/%02d/%04d", month + 1, dayOfMonth, year);
+                        String formattedDate = String.format(Locale.US, "%02d/%02d/%04d", dayOfMonth, month + 1, year);
                         dateEditText.setText(formattedDate);
                     }
                 };
@@ -76,6 +79,7 @@ public class AssetLiabilityFragment extends Fragment  {
 
         descriptionEditText = rootView.findViewById(R.id.al_desc);
         amountEditText = rootView.findViewById(R.id.al_amount);
+        amountEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         assetLiabSpinner = rootView.findViewById(R.id.spinner_asset_liab);
 
         Button addBtn = rootView.findViewById(R.id.al_add_button);
