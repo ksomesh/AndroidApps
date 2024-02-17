@@ -75,6 +75,9 @@ public class ExpenseFragment extends Fragment {
         etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         spSrc = rootView.findViewById(R.id.spinner_expense_src);
         spTag = rootView.findViewById(R.id.spinner_expense_tag);
+        spSrc.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
+        spTag.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.TAGS));
+
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {

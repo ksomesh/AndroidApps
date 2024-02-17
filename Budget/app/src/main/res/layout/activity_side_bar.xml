@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    tools:context=".SideBarActivity">
+    <include layout="@layout/sidebar_actionbar"/>
+    <TextView
+        android:id="@+id/tv_profile_add_src"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Add a source with start balance"
+        android:textColor="@color/white"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/et_profile_src"
+        android:background="@drawable/lavender_border_fill_background"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/tv_profile_add_src"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="New account" />
+
+    <!-- Edit Text for Number Input -->
+    <EditText
+        android:id="@+id/et_profile_src_val"
+        android:layout_alignTop="@+id/tv_profile_add_src"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="160dp"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="180dp"
+        android:background="@drawable/lavender_border_fill_background"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/baseline_currency_rupee_24"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:hint="Starting balance" />
+
+    <Button
+        android:id="@+id/btn_profile_src_add"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/tv_profile_add_src"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/lavender_border_fill_background"
+        android:padding="8dp"
+        android:drawableLeft="@drawable/baseline_add_24"
+        android:text=""
+        android:textColor="@color/black" />
+    <TextView
+        android:id="@+id/tv_profile_add_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/et_profile_src"
+        android:layout_marginTop="60dp"
+        android:text="Add a tag"
+        android:textColor="@color/white"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/et_profile_tag"
+        android:background="@drawable/lavender_border_fill_background"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/tv_profile_add_tag"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:hint="New tag" />
+
+    <!-- Edit Text for Number Input -->
+
+    <Button
+        android:id="@+id/btn_profile_tag_add"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/tv_profile_add_tag"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/lavender_border_fill_background"
+        android:padding="8dp"
+        android:drawableLeft="@drawable/baseline_add_24"
+        android:text=""
+        android:textColor="@color/black" />
+
+
+</RelativeLayout>

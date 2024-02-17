@@ -24,5 +24,6 @@
         <item>Health</item>
         <item>Travel</item>
         <item>LoanEmi</item>
+        <item>Start balance</item>
     </string-array>
 </resources>

@@ -75,6 +75,9 @@ public class TransferFragment extends Fragment {
         etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         spSrc = rootView.findViewById(R.id.spinner_transfer_src);
         spDest = rootView.findViewById(R.id.spinner_transfer_dest);
+        spSrc.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
+        spDest.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
+
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {

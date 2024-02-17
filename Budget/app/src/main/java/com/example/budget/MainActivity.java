@@ -10,11 +10,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.budget.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +28,7 @@ import java.util.concurrent.Executor;
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout mainLayout;
+    public boolean bLoggedIn = false;
     BottomNavigationView bottomNavigationView;
     AssetLiabilityFragment assetLiabilityFragment = new AssetLiabilityFragment();
     IncomeFragment incomeFragment = new IncomeFragment();
@@ -40,46 +44,61 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainLayout = findViewById(R.id.main_layout);
+        ImageView ivToolBarMenu = findViewById(R.id.iv_toolbar_menu);
 
-        BiometricManager biometricManager = BiometricManager.from(this);
-        switch (biometricManager.canAuthenticate())
-        {
-            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Toast.makeText(this, "Device does not support biometric", Toast.LENGTH_SHORT).show();
-                break;
-            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
-                Toast.makeText(this, "Device biometric is unavailable", Toast.LENGTH_SHORT).show();
-                break;
-            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                Toast.makeText(this, "No biometric enrolled", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        Executor executor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+        ivToolBarMenu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                super.onAuthenticationError(errorCode, errString);
-            }
-
-            @Override
-            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                super.onAuthenticationSucceeded(result);
-                Toast.makeText(MainActivity.this, "Login successfull", Toast.LENGTH_SHORT).show();
-                mainLayout.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAuthenticationFailed() {
-                super.onAuthenticationFailed();
+            public void onClick(View v) {
+                Intent intent  = new Intent(getApplicationContext(), SideBarActivity.class);
+                startActivity(intent);
             }
         });
 
-        promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Budget").setDeviceCredentialAllowed(true).build();
-        biometricPrompt.authenticate(promptInfo);
+        if(!bLoggedIn) {
+            BiometricManager biometricManager = BiometricManager.from(this);
+            switch (biometricManager.canAuthenticate()) {
+                case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                    Toast.makeText(this, "Device does not support biometric", Toast.LENGTH_SHORT).show();
+                    break;
+                case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                    Toast.makeText(this, "Device biometric is unavailable", Toast.LENGTH_SHORT).show();
+                    break;
+                case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                    Toast.makeText(this, "No biometric enrolled", Toast.LENGTH_SHORT).show();
+                    break;
+            }
 
+            Executor executor = ContextCompat.getMainExecutor(this);
+            biometricPrompt = new BiometricPrompt(MainActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
+                        finishAndRemoveTask();
+                    }
+                }
+
+                @Override
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    Toast.makeText(MainActivity.this, "Login successfull", Toast.LENGTH_SHORT).show();
+                    bLoggedIn = true;
+                    mainLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+                }
+            });
+
+
+            promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Budget").setDeviceCredentialAllowed(true).build();
+            biometricPrompt.authenticate(promptInfo);
+        }
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        bottomNavigationView.setSelectedItemId(R.id.expense);
         replaceFragment(new ExpenseFragment());
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

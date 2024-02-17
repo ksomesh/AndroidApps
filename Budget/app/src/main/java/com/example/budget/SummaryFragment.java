@@ -35,6 +35,7 @@ public class SummaryFragment extends Fragment {
         getSummaryBtn = rootView.findViewById(R.id.btn_downloadSummary);
         btnReset = rootView.findViewById(R.id.btn_reset);
         Spinner spSummaryAcc = rootView.findViewById(R.id.sp_summary_acc);
+        spSummaryAcc.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
         TextView tvAccSummary = rootView.findViewById(R.id.tv_summary_acc_val);
 
 
@@ -68,10 +69,12 @@ public class SummaryFragment extends Fragment {
             public void onClick(View v) {
                 db.exportAllTablesToCSV();
                 db.resetFinDB();
+                SharedPrefHandler.clear(getContext());
                 textViewAssetVal.setText(String.valueOf(0.0));
                 textViewLiabVal.setText(String.valueOf(0.0));
                 textViewIncomeVal.setText(String.valueOf(0.0));
                 textViewExpenseVal.setText(String.valueOf(0.0));
+                tvAccSummary.setText(String.valueOf(0.0));
             }
         });
         return rootView;

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background2"
     tools:context=".AssetLiabilityFragment">
-
+    <include layout="@layout/actionbar"/>
     <EditText
         android:id="@+id/al_Date"
         android:layout_width="350dp"

@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_asset_liability"
-        android:icon="@drawable/asset_liability_logo"
+        android:icon="@drawable/baseline_cases_24"
         android:title="Asset liability"/>
 
     <item

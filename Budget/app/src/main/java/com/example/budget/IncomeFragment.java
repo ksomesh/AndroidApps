@@ -45,6 +45,12 @@ public class IncomeFragment extends Fragment {
         dateEditText = rootView.findViewById(R.id.income_Date);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         dateEditText.setText(sdf.format(new Date()));
+        spDest = rootView.findViewById(R.id.spinner_income_dest);
+        spTag = rootView.findViewById(R.id.spinner_income_tag);
+
+        spDest.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
+        spTag.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.TAGS));
+
 
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +83,7 @@ public class IncomeFragment extends Fragment {
         etDescription = rootView.findViewById(R.id.income_desc);
         etAmount= rootView.findViewById(R.id.income_amount);
         etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        spDest = rootView.findViewById(R.id.spinner_income_dest);
-        spTag = rootView.findViewById(R.id.spinner_income_tag);
+
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
