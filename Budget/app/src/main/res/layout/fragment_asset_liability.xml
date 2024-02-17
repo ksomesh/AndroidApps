@@ -19,7 +19,6 @@
         android:textColor="@color/black"
         android:focusable="false" />
 
-
     <Spinner
         android:id="@+id/spinner_asset_liab"
         android:layout_below="@+id/al_Date"
@@ -29,7 +28,16 @@
         android:layout_marginTop="15dp"
         android:spinnerMode="dropdown"
         android:background="@drawable/lavender_border_fill_background"
-        android:entries="@array/dropdown_asset_liability_items" />
+        android:entries="@array/dropdown_asset_liability_items"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/al_Date"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="330dp"
+        android:src="@drawable/baseline_arrow_drop_down_24"
+        />
 
     <!-- Edit Text for String Input -->
     <EditText

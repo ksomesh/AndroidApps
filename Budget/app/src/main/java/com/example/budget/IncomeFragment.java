@@ -109,7 +109,7 @@ public class IncomeFragment extends Fragment {
 
                 db.insertDataToIncomeExpenseTable(date, strDesc, fAmount, strTag, strDest, "income");
                 db.queryAndUpdateFinalTable(0, 0, fAmount, 0);
-            };
+            }
         });
 
         return rootView;

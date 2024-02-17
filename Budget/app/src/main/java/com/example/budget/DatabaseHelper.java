@@ -177,11 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from users where email = ?", new String[]{email});
 
-        if(cursor.getCount() > 0) {
-            return true;
-        }else {
-            return false;
-        }
+        return cursor.getCount() > 0;
     }
 
     @SuppressLint("Range")
@@ -219,11 +215,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from users where email = ? and password = ?", new String[]{email, password});
 
-        if (cursor.getCount() > 0) {
-            return true;
-        }else {
-            return false;
-        }
+        return cursor.getCount() > 0;
     }
 
     public double getBalanceForAcc(String strAcc)
@@ -304,7 +296,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             String value = curCSV.getString(columnIndex);
                             record.append(value).append(",");
                         }
-                        printWriter.println(record.toString());
+                        printWriter.println(record);
                     }
 
                     curCSV.close();

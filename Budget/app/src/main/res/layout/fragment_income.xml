@@ -60,6 +60,14 @@
         android:background="@drawable/lavender_border_fill_background"
         android:entries="@array/dropdown_Account_items" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/income_amount"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="330dp"
+        android:src="@drawable/baseline_arrow_drop_down_24"
+        />
     <Spinner
         android:id="@+id/spinner_income_tag"
         android:layout_below="@id/spinner_income_dest"
@@ -70,7 +78,14 @@
         android:spinnerMode="dropdown"
         android:background="@drawable/lavender_border_fill_background"
         android:entries="@array/dropdown_tag_items" />
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_income_dest"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="330dp"
+        android:src="@drawable/baseline_arrow_drop_down_24"
+        />
     <Button
         android:id="@+id/income_add_button"
         android:layout_width="350dp"

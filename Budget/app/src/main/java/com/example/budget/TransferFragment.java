@@ -104,7 +104,7 @@ public class TransferFragment extends Fragment {
                 db.insertDataToTransferTable(date,strDesc,fAmount, "", strSrc, strDest);
 
 
-            };
+            }
         });
 
         return rootView;

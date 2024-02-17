@@ -116,7 +116,7 @@ public class AssetLiabilityFragment extends Fragment  {
 
                 db.queryAndUpdateFinalTable(fAsset, fLiability, 0, 0);
 
-            };
+            }
         });
 
 
