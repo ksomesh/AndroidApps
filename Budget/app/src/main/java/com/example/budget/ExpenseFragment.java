@@ -39,8 +39,7 @@ public class ExpenseFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_expense, container, false);
         db = new DatabaseHelper(getContext());
         dateEditText = rootView.findViewById(R.id.expense_Date);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        dateEditText.setText(sdf.format(new Date()));
+        dateEditText.setText(Utility.getTodayDate());
 
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,7 @@ public class ExpenseFragment extends Fragment {
         Button addBtn = rootView.findViewById(R.id.expense_add_button);
         etDescription = rootView.findViewById(R.id.expense_desc);
         etAmount= rootView.findViewById(R.id.expense_amount);
-        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         spSrc = rootView.findViewById(R.id.spinner_expense_src);
         spTag = rootView.findViewById(R.id.spinner_expense_tag);
         spSrc.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
@@ -83,7 +82,7 @@ public class ExpenseFragment extends Fragment {
             public void onClick(View view) {
 
                 String strDesc = etDescription.getText().toString();
-                float fAmount = Float.parseFloat(etAmount.getText().toString());
+                Double fAmount = Double.parseDouble(etAmount.getText().toString());
                 String strTag = spTag.getSelectedItem().toString();
                 String strSrc = spSrc.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
@@ -99,10 +98,10 @@ public class ExpenseFragment extends Fragment {
 
                 etDescription.setText(null);
                 etAmount.setText(null);
-                dateEditText.setText("Select a date");
+                dateEditText.setText(Utility.getTodayDate());
 
                 db.insertDataToIncomeExpenseTable(date, strDesc, fAmount, strTag, strSrc, "expense");
-                db.queryAndUpdateFinalTable(0, 0, 0, fAmount);
+                db.queryAndUpdateFinalTable(Double.parseDouble("0"), Double.parseDouble("0"), Double.parseDouble("0"), fAmount);
             }
         });
 

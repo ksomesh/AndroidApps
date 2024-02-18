@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.execSQL("create Table incomeExpense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, account TEXT, type TEXT)");
         MyDatabase.execSQL("create Table transfer(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, src TEXT, dest TEXT)");
         MyDatabase.execSQL("create Table final(id INTEGER PRIMARY KEY , date TEXT, totalAsset REAL, totalLiability REAL, totalIncome REAL, totalExpense REAL)");
-        insertDataToFinalTable(MyDatabase, 1,"NA", Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") );
+        insertDataToFinalTable(MyDatabase, 1,"NA", Double.parseDouble("0") ,Double.parseDouble("0") ,Double.parseDouble("0") ,Double.parseDouble("0") );
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         MyDatabase.execSQL("create Table incomeExpense(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, account TEXT, type TEXT)");
         MyDatabase.execSQL("create Table transfer(id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, description TEXT, amount REAL, tag TEXT, src TEXT, dest TEXT)");
         MyDatabase.execSQL("create Table final(id INTEGER PRIMARY KEY , date TEXT, totalAsset REAL, totalLiability REAL, totalIncome REAL, totalExpense REAL)");
-        insertDataToFinalTable(MyDatabase, 1,"NA", Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") ,Float.parseFloat("0") );
+        insertDataToFinalTable(MyDatabase, 1,"NA", Double.parseDouble("0") ,Double.parseDouble("0") ,Double.parseDouble("0") ,Double.parseDouble("0") );
     }
 
     public Boolean insertData(String email, String password){
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertDataToAssetLiabilityTable(String date, String description, Float amount, String type){
+    public Boolean insertDataToAssetLiabilityTable(String date, String description, Double amount, String type){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("date", date);
@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Boolean insertDataToIncomeExpenseTable(String date, String description, Float amount, String tag, String account, String type){
+    public Boolean insertDataToIncomeExpenseTable(String date, String description, Double amount, String tag, String account, String type){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("date", date);
@@ -112,7 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertDataToTransferTable(String date, String description, Float amount, String tag, String src, String dest){
+    public Boolean insertDataToTransferTable(String date, String description, Double amount, String tag, String src, String dest){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("date", date);
@@ -132,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean insertDataToFinalTable(SQLiteDatabase MyDatabase, int iId, String date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
+    public Boolean insertDataToFinalTable(SQLiteDatabase MyDatabase, int iId, String date, Double totalAsset, Double totalLiability, Double totalIncome, Double totalExpense){
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", iId);
         contentValues.put("date", date);
@@ -152,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Boolean UpdateFinalTable(String date, Float totalAsset, Float totalLiability, Float totalIncome, Float totalExpense){
+    public Boolean UpdateFinalTable(String date, Double totalAsset, Double totalLiability, Double totalIncome, Double totalExpense){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", 1);
@@ -193,17 +193,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            summary.fTotalAsset =  cursor.getFloat(cursor.getColumnIndex("totalAsset"));
-            summary.fTotalLiability = cursor.getFloat(cursor.getColumnIndex("totalLiability"));
-            summary.fTotalIncome = cursor.getFloat(cursor.getColumnIndex("totalIncome"));
-            summary.fTotalExpense = cursor.getFloat(cursor.getColumnIndex("totalExpense"));
+            summary.fTotalAsset =  cursor.getDouble(cursor.getColumnIndex("totalAsset"));
+            summary.fTotalLiability = cursor.getDouble(cursor.getColumnIndex("totalLiability"));
+            summary.fTotalIncome = cursor.getDouble(cursor.getColumnIndex("totalIncome"));
+            summary.fTotalExpense = cursor.getDouble(cursor.getColumnIndex("totalExpense"));
             return summary;
         }else {
             return null;
         }
     }
 
-    public void queryAndUpdateFinalTable(float fAddAsset, float fAddLiability, float fAddIncome, float fAddExpense ){
+    public void queryAndUpdateFinalTable(Double fAddAsset, Double fAddLiability, Double fAddIncome, Double fAddExpense ){
         Summary summary = getSummary();
         summary.fTotalAsset += fAddAsset;
         summary.fTotalLiability += fAddLiability;
@@ -229,7 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         while (cursor.moveToNext())  {
             @SuppressLint("Range") String strType = cursor.getString(cursor.getColumnIndex("type"));
-            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            @SuppressLint("Range") Double dAmount = cursor.getDouble(cursor.getColumnIndex("amount"));
             if(strType.equals("income")) {
                 dTotBalanceForAcc += dAmount;
             }
@@ -244,7 +244,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         selectionArgs = new String[]{strAcc};
         cursor = MyDatabase.query("transfer", projection, selection, selectionArgs, null, null, null);
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            @SuppressLint("Range") Double dAmount = cursor.getDouble(cursor.getColumnIndex("amount"));
             dTotBalanceForAcc += dAmount;
         }
 
@@ -253,7 +253,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         selectionArgs = new String[]{strAcc};
         cursor = MyDatabase.query("transfer", projection, selection, selectionArgs, null, null, null);
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") double dAmount = cursor.getFloat(cursor.getColumnIndex("amount"));
+            @SuppressLint("Range") Double dAmount = cursor.getDouble(cursor.getColumnIndex("amount"));
             dTotBalanceForAcc -= dAmount;
         }
         return dTotBalanceForAcc;

@@ -39,8 +39,7 @@ public class TransferFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_transfer, container, false);
         db = new DatabaseHelper(getContext());
         dateEditText = rootView.findViewById(R.id.transfer_Date);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        dateEditText.setText(sdf.format(new Date()));
+        dateEditText.setText(Utility.getTodayDate());
 
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,7 @@ public class TransferFragment extends Fragment {
         Button addBtn = rootView.findViewById(R.id.transfer_add_button);
         etDescription = rootView.findViewById(R.id.transfer_desc);
         etAmount= rootView.findViewById(R.id.transfer_amount);
-        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         spSrc = rootView.findViewById(R.id.spinner_transfer_src);
         spDest = rootView.findViewById(R.id.spinner_transfer_dest);
         spSrc.setAdapter(SpinnerItemFetcher.fetchSpinnerItem(getContext(), SpinnerItemFetcher.ACCOUNTS));
@@ -83,7 +82,7 @@ public class TransferFragment extends Fragment {
             public void onClick(View view) {
 
                 String strDesc = etDescription.getText().toString();
-                Float fAmount = Float.parseFloat(etAmount.getText().toString());
+                Double fAmount = Double.parseDouble(etAmount.getText().toString());
                 String strDest = spDest.getSelectedItem().toString();
                 String strSrc = spSrc.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
@@ -99,7 +98,7 @@ public class TransferFragment extends Fragment {
 
                 etDescription.setText(null);
                 etAmount.setText(null);
-                dateEditText.setText("Select a date");
+                dateEditText.setText(Utility.getTodayDate());
 
                 db.insertDataToTransferTable(date,strDesc,fAmount, "", strSrc, strDest);
 

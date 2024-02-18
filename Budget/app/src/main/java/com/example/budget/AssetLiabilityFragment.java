@@ -48,8 +48,7 @@ public class AssetLiabilityFragment extends Fragment  {
         db = new DatabaseHelper(getContext());
 
         dateEditText = rootView.findViewById(R.id.al_Date);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        dateEditText.setText(sdf.format(new Date()));
+        dateEditText.setText(Utility.getTodayDate());
         // Set an OnClickListener for the date EditText
         dateEditText.setOnClickListener(new View.OnClickListener() {
 
@@ -79,7 +78,7 @@ public class AssetLiabilityFragment extends Fragment  {
 
         descriptionEditText = rootView.findViewById(R.id.al_desc);
         amountEditText = rootView.findViewById(R.id.al_amount);
-        amountEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        amountEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         assetLiabSpinner = rootView.findViewById(R.id.spinner_asset_liab);
 
         Button addBtn = rootView.findViewById(R.id.al_add_button);
@@ -87,7 +86,7 @@ public class AssetLiabilityFragment extends Fragment  {
             public void onClick(View view) {
 
                 String strDesc = descriptionEditText.getText().toString();
-                Float fAmount = Float.parseFloat(amountEditText.getText().toString());
+                Double fAmount = Double.parseDouble(amountEditText.getText().toString());
                 String strType = assetLiabSpinner.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
                 /*
@@ -102,19 +101,19 @@ public class AssetLiabilityFragment extends Fragment  {
 
                 descriptionEditText.setText(null);
                 amountEditText.setText(null);
-                dateEditText.setText("Select a date");
+                dateEditText.setText(Utility.getTodayDate());
 
                 db.insertDataToAssetLiabilityTable(date, strDesc, fAmount, strType);
 
-                float fAsset = Float.parseFloat("0");
-                float fLiability = Float.parseFloat("0");
+                Double fAsset = Double.parseDouble("0");
+                Double fLiability = Double.parseDouble("0");
                 if(strType.equals("Asset")) {
                     fAsset = fAmount;
                 } else {
                     fLiability = fAmount;
                 }
 
-                db.queryAndUpdateFinalTable(fAsset, fLiability, 0, 0);
+                db.queryAndUpdateFinalTable(fAsset, fLiability, Double.parseDouble("0"), Double.parseDouble("0"));
 
             }
         });

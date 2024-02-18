@@ -43,8 +43,7 @@ public class IncomeFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_income, container, false);
         db = new DatabaseHelper(getContext());
         dateEditText = rootView.findViewById(R.id.income_Date);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-        dateEditText.setText(sdf.format(new Date()));
+        dateEditText.setText(Utility.getTodayDate());
         spDest = rootView.findViewById(R.id.spinner_income_dest);
         spTag = rootView.findViewById(R.id.spinner_income_tag);
 
@@ -82,14 +81,14 @@ public class IncomeFragment extends Fragment {
         Button addBtn = rootView.findViewById(R.id.income_add_button);
         etDescription = rootView.findViewById(R.id.income_desc);
         etAmount= rootView.findViewById(R.id.income_amount);
-        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        etAmount.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
                 String strDesc = etDescription.getText().toString();
-                Float fAmount = Float.parseFloat(etAmount.getText().toString());
+                Double fAmount = Double.parseDouble(etAmount.getText().toString());
                 String strTag = spTag.getSelectedItem().toString();
                 String strDest = spDest.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
@@ -105,10 +104,10 @@ public class IncomeFragment extends Fragment {
                 
                 etDescription.setText(null);
                 etAmount.setText(null);
-                dateEditText.setText("Select a date");
+                dateEditText.setText(Utility.getTodayDate());
 
                 db.insertDataToIncomeExpenseTable(date, strDesc, fAmount, strTag, strDest, "income");
-                db.queryAndUpdateFinalTable(0, 0, fAmount, 0);
+                db.queryAndUpdateFinalTable(Double.parseDouble("0"), Double.parseDouble("0"), fAmount, Double.parseDouble("0"));
             }
         });
 

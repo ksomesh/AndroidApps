@@ -44,7 +44,7 @@
         android:background="@drawable/lavender_border_fill_background"
         android:layout_height="60dp"
         android:drawableLeft="@drawable/baseline_currency_rupee_24"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         android:textColor="@color/black"
         android:hint="Amount" />
 
