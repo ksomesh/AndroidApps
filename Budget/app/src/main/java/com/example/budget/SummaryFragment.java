@@ -49,7 +49,7 @@ public class SummaryFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String strAccName = spSummaryAcc.getSelectedItem().toString();
-                tvAccSummary.setText(Double.toString(db.getBalanceForAcc(strAccName)));
+                tvAccSummary.setText(Double.toString(Math.round(db.getBalanceForAcc(strAccName) * 100.0)/100.0));
             }
 
             @Override
